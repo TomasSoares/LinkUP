@@ -65,4 +65,4 @@ Contributions are welcome! Feel free to fork the repository and submit pull requ
 
 ---
 
-Made with ❤️ | [Your Name](https://github.com/yourusername)
+Made with ❤️ | [Tomás Soares]
