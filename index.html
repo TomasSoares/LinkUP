@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LinkUP - Your Personal Launch Pad</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+      
+      /* Base styles */
+      body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        background: linear-gradient(145deg, #121212, #1e1e1e, #2d2d2d);
+        background-size: 200% 200%;
+        animation: gradientAnimation 15s ease infinite;
+      }
+      
+      @keyframes gradientAnimation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      
+      .container {
+        border-radius: 24px;
+        padding: 40px 25px 40px;
+        width: 85%;
+        max-width: 450px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.5s ease;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        background: rgba(30, 30, 30, 0.75);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .container::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      
+      .logo {
+        margin-bottom: 35px;
+      }
+      
+      .logo h1 {
+        font-size: 2.5rem;
+        margin: 0;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        color: #ffffff;
+      }
+      
+      .logo span {
+        font-weight: 300;
+        font-size: 1.1rem;
+        opacity: 0.8;
+        letter-spacing: 0.5px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      
+      .search-box {
+        margin-bottom: 35px;
+        position: relative;
+      }
+      
+      .search-box input {
+        width: 100%;
+        padding: 16px 20px;
+        border-radius: 16px;
+        border: none;
+        background: rgba(255, 255, 255, 0.08);
+        font-family: 'Poppins', sans-serif;
+        font-size: 1rem;
+        color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+      }
+      
+      .search-box input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+      
+      .search-box input:focus {
+        outline: none;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
+      }
+      
+      .search-box .fa-search {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .links {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      
+      /* Remove the group-specific spacing rules since we now have only one div per space */
+      #entertainment-space .links,
+      #education-space .links {
+        margin-top: 0;
+      }
+      
+      .link {
+        color: #ffffff;
+        border: none;
+        border-radius: 16px;
+        padding: 16px 25px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        font-weight: 400;
+        font-family: 'Poppins', sans-serif;
+        width: 100%;
+        transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.08);
+      }
+      
+      .link i {
+        font-size: 1.25rem;
+        transition: transform 0.3s ease;
+      }
+      
+      .link:hover i {
+        transform: scale(1.15);
+      }
+      
+      .link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: -1;
+        transition: opacity 0.3s ease;
+        background: linear-gradient(135deg, #555555, #333333);
+      }
+      
+      .link:hover {
+        transform: translateY(-4px);
+      }
+      
+      .link:hover::before {
+        opacity: 1;
+      }
+      
+      .link:active {
+        transform: translateY(-1px);
+      }
+      
+      .space-tabs {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto 30px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 6px;
+        max-width: 300px;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      
+      .space-tab {
+        padding: 12px 24px;
+        border: none;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 500;
+        font-size: 0.95rem;
+        border-radius: 12px;
+        transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .space-tab.active {
+        background: rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        transform: translateY(-1px);
+      }
+      
+      .space-tab:hover:not(.active) {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      
+      .space-tab i {
+        margin-right: 6px;
+      }
+      
+      .space {
+        display: none;
+      }
+      
+      .space.active {
+        display: block;
+      }
+      
+      .space.active .links {
+        animation: none;
+      }
+      
+      .space.active .link {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.5s forwards;
+      }
+      
+      .space.active .link:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .space.active .link:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .space.active .link:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .space.active .link:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+      .space.active .link:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+      .space.active .link:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+      .space.active .link:nth-child(7) {
+        animation-delay: 0.35s;
+      }
+      .space.active .link:nth-child(8) {
+        animation-delay: 0.4s;
+      }
+      .space.active .link:nth-child(9) {
+        animation-delay: 0.45s;
+      }
+      
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      footer {
+        margin-top: 40px;
+        font-size: 0.85rem;
+        opacity: 0.7;
+        letter-spacing: 0.5px;
+        position: relative;
+        padding-top: 15px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      
+      footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 25%;
+        width: 50%;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.2);
+      }
+      
+      @media (max-width: 480px) {
+        .container {
+          width: 90%;
+          padding: 30px 15px;
+        }
+        
+        .logo h1 {
+          font-size: 2rem;
+        }
+        
+        .profile h1 {
+          font-size: 2rem;
+        }
+        
+        .profile p {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">
+        <h1>LinkUP</h1>
+        <span>Your Personal Launch Pad</span>
+      </div>
+      
+      <div class="search-box">
+        <input type="text" placeholder="Search the web..." id="searchInput" />
+        <i class="fas fa-search"></i>
+      </div>
+      
+      <div class="space-tabs">
+        <button class="space-tab active" data-space="entertainment">
+          <i class="fas fa-tv"></i> Enjoyment
+        </button>
+        <button class="space-tab" data-space="education">
+          <i class="fas fa-graduation-cap"></i> Education
+        </button>
+      </div>
+      
+      <!-- Entertainment Space -->
+      <div id="entertainment-space" class="space active">
+        <div class="links">
+          <a href="https://www.youtube.com/">
+            <button class="link"><i class="fab fa-youtube"></i>YouTube</button>
+          </a>
+          <a href="https://www.twitch.tv">
+            <button class="link"><i class="fab fa-twitch"></i>Twitch</button>
+          </a>
+          <a href="https://www.netflix.com/">
+            <button class="link"><i class="fas fa-film"></i>Netflix</button>
+          </a>
+          <a href="https://github.com/">
+            <button class="link"><i class="fab fa-github"></i>GitHub</button>
+          </a>
+          <a href="https://mail.google.com/">
+            <button class="link"><i class="fas fa-envelope"></i>Gmail</button>
+          </a>
+          <a href="https://leetcode.com/">
+            <button class="link"><i class="fas fa-code"></i>LeetCode</button>
+          </a>
+          <a href="https://www.faceit.com/">
+            <button class="link"><i class="fas fa-gamepad"></i>Faceit</button>
+          </a>
+          <a href="https://www.chess.com/">
+            <button class="link"><i class="fas fa-chess-knight"></i>Chess.com</button>
+          </a>
+          <a href="https://chat.openai.com/">
+            <button class="link"><i class="fas fa-robot"></i>ChatGPT</button>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Education Space -->
+      <div id="education-space" class="space">
+        <div class="links">
+          <a href="https://ead.ipleiria.pt/2024-25">
+            <button class="link"><i class="fas fa-graduation-cap"></i>EAD IPLeiria</button>
+          </a>
+          <a href="https://www.notion.so">
+            <button class="link"><i class="fas fa-sticky-note"></i>Notion</button>
+          </a>
+          <a href="https://gisem.dei.estg.ipleiria.pt/horarios">
+            <button class="link"><i class="fas fa-calendar-alt"></i>Horários</button>
+          </a>
+          <a href="https://outlook.office.com/mail/">
+            <button class="link"><i class="fas fa-envelope"></i>Outlook</button>
+          </a>
+          <a href="https://siga.ipleiria.pt/UnicardSIGEPortal/Account/Login?ReturnUrl=/UnicardSIGEPortal/Home/Index">
+            <button class="link"><i class="fas fa-id-card"></i>SIGA</button>
+          </a>
+          <a href="https://portaldoestudante.ipleiria.pt/netpa/page?stage=difhomestage">
+            <button class="link"><i class="fas fa-user-graduate"></i>Portal Estudante</button>
+          </a>
+          <a href="https://chat.deepseek.com/">
+            <button class="link"><i class="fas fa-brain"></i>DeepSeek</button>
+          </a>
+          <a href="https://claude.ai/chat">
+            <button class="link"><i class="fas fa-robot"></i>Claude AI</button>
+          </a>
+          <a href="https://fileport.io/">
+            <button class="link"><i class="fas fa-file-upload"></i>FilePort</button>
+          </a>
+        </div>
+      </div>
+      
+      <footer>
+        LinkUP © 2025 | Your Personal Web Launch Pad
+      </footer>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          // Set up search functionality
+          const searchInput = document.getElementById('searchInput');
+          searchInput.addEventListener('keypress', function(e) {
+              if (e.key === 'Enter') {
+                  const query = searchInput.value.trim();
+                  if (query) {
+                      window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+                  }
+              }
+          });
+          
+          // Set up tab switching functionality with animation
+          const spaceTabs = document.querySelectorAll('.space-tab');
+          const spaces = document.querySelectorAll('.space');
+          
+          spaceTabs.forEach(tab => {
+              tab.addEventListener('click', function() {
+                  const spaceId = this.getAttribute('data-space');
+                  
+                  if (this.classList.contains('active')) return;
+                  
+                  // Deactivate all tabs
+                  spaceTabs.forEach(t => t.classList.remove('active'));
+                  
+                  // Hide current space
+                  document.querySelector('.space.active').classList.remove('active');
+                  
+                  // Activate selected tab and space
+                  this.classList.add('active');
+                  document.getElementById(`${spaceId}-space`).classList.add('active');
+                  
+                  // Reset animations by removing and re-adding the class
+                  const links = document.querySelectorAll(`#${spaceId}-space .link`);
+                  links.forEach(link => {
+                      link.style.animation = 'none';
+                      void link.offsetWidth;
+                      link.style.animation = '';
+                  });
+              });
+          });
+          
+          // Initial animation for links
+          const initialLinks = document.querySelectorAll('.space.active .link');
+          initialLinks.forEach((link, index) => {
+              link.style.animationDelay = `${0.05 * (index + 1)}s`;
+          });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+    
+/* Base styles that apply to all themes */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  transition: background 0.5s ease;
+}
+
+.container {
+  border-radius: 30px;
+  padding: 40px 25px;
+  width: 85%;
+  max-width: 450px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.profile-pic {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  margin: 0 auto 25px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.5s ease;
+}
+
+.profile-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.profile-pic:hover img {
+  transform: scale(1.08);
+}
+
+.profile h1 {
+  font-size: 2.5rem;
+  margin: 10px 0;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.5s ease;
+}
+
+.profile p {
+  font-size: 1.15rem;
+  margin: 10px 0 35px;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+  font-weight: 300;
+  transition: all 0.5s ease;
+}
+
+.links {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.link {
+  color: #ffffff;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 25px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 400;
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.link:hover {
+  transform: translateY(-3px);
+}
+
+.link:hover::before {
+  opacity: 1;
+}
+
+.link:active {
+  transform: translateY(0);
+}
+
+/* Theme Switcher Styles */
+.theme-switcher {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 100;
+}
+
+.theme-option {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.theme-option:hover {
+  transform: scale(1.2);
+}
+
+.theme-option.active {
+  transform: scale(1.2);
+  border: 2px solid white;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+#dark-theme {
+  background: linear-gradient(135deg, #333333, #111111);
+}
+
+#teal-theme {
+  background: linear-gradient(135deg, #00425A, #1F8A70);
+}
+
+#sunset-theme {
+  background: linear-gradient(135deg, #FF5F6D, #FFC371);
+}
+
+#mint-theme {
+  background: linear-gradient(135deg, #184E77, #76C893);
+}
+
+#pink-theme {
+  background: linear-gradient(135deg, #3A0CA3, #F72585);
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 90%;
+    padding: 30px 15px;
+  }
+  
+  .profile h1 {
+    font-size: 2rem;
+  }
+  
+  .profile p {
+    font-size: 1rem;
+  }
+}
